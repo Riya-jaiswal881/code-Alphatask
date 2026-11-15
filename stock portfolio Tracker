@@ -1,0 +1,92 @@
+
+# Stock Portfolio Tracker
+
+portfolio = {}
+
+def add_stock():
+    name = input("Enter stock name: ").upper()
+    quantity = int(input("Enter quantity: "))
+    price = float(input("Enter purchase price per share: "))
+
+    portfolio[name] = {
+        "quantity": quantity,
+        "price": price
+    }
+
+    print("Stock added successfully!")
+
+
+def view_portfolio():
+    if not portfolio:
+        print("Your portfolio is empty.")
+        return
+
+    print("\n------ STOCK PORTFOLIO ------")
+
+    total_investment = 0
+
+    for name, details in portfolio.items():
+        quantity = details["quantity"]
+        price = details["price"]
+
+        investment = quantity * price
+        total_investment += investment
+
+        print("\nStock:", name)
+        print("Quantity:", quantity)
+        print("Purchase Price:", price)
+        print("Total Investment:", investment)
+
+    print("\nTotal Portfolio Investment:", total_investment)
+
+
+def calculate_profit_loss():
+    if not portfolio:
+        print("Your portfolio is empty.")
+        return
+
+    total_profit_loss = 0
+
+    for name, details in portfolio.items():
+        current_price = float(
+            input(f"Enter current price of {name}: ")
+        )
+
+        quantity = details["quantity"]
+        purchase_price = details["price"]
+
+        profit_loss = (current_price - purchase_price) * quantity
+
+        total_profit_loss += profit_loss
+
+        print("\nStock:", name)
+        print("Profit/Loss:", round(profit_loss, 2))
+
+    print("\nTotal Profit/Loss:", round(total_profit_loss, 2))
+
+
+while True:
+
+    print("\n===== STOCK PORTFOLIO TRACKER =====")
+    print("1. Add Stock")
+    print("2. View Portfolio")
+    print("3. Calculate Profit/Loss")
+    print("4. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        add_stock()
+
+    elif choice == "2":
+        view_portfolio()
+
+    elif choice == "3":
+        calculate_profit_loss()
+
+    elif choice == "4":
+        print("Thank you for using Stock Portfolio Tracker!")
+        break
+
+    else:
+        print("Invalid choice! Please try again.")
